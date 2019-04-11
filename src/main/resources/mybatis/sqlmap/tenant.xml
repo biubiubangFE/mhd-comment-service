@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mhdss.comment.dao.TenantDAO">
+
+  <sql id="insert_columns">
+    (code, check_url, end_time, status, create_time, update_time)
+  </sql>
+
+  <sql id="insert_values">
+    (#{code}, #{checkUrl}, #{endTime}, #{status}, #{createTime}, #{updateTime})
+  </sql>
+
+  <sql id="query_columns">
+    id, code, check_url AS checkUrl, end_time AS endTime, status, create_time AS createTime, update_time AS updateTime
+  </sql>
+
+  <sql id="where">
+    <where>
+      
+    </where>
+  </sql>
+
+  <sql id="limit_where">
+    <include refid="where"/>
+    <if test="range != 0">
+      LIMIT ${start}, ${range}
+    </if>
+  </sql>
+
+  <insert id="insert" parameterType="com.mhdss.comment.dataobject.TenantDO">
+    <selectKey keyProperty="id" resultType="long">
+      SELECT LAST_INSERT_ID() AS id
+    </selectKey>
+    INSERT INTO tenant <include refid="insert_columns"/> VALUES <include refid="insert_values"/>
+  </insert>
+
+  <update id="insertUpdateOnDuplicate" parameterType="com.mhdss.comment.dataobject.TenantDO">
+    <selectKey keyProperty="id" resultType="long">
+      SELECT LAST_INSERT_ID() AS id
+    </selectKey>
+    INSERT INTO tenant <include refid="insert_columns"/> VALUES <include refid="insert_values"/> ON DUPLICATE KEY UPDATE update_time = #{updateTime}, id = LAST_INSERT_ID(id)
+  </update>
+
+  <update id="updateById" parameterType="com.mhdss.comment.dataobject.TenantDO">
+    UPDATE tenant
+    <set>
+      <if test="code != null">
+        code = #{code},
+      </if>
+      <if test="checkUrl != null">
+        check_url = #{checkUrl},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime},
+      </if>
+      <if test="status != null">
+        status = #{status},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime},
+      </if>
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <update id="updateByIds" parameterType="java.util.Map">
+    UPDATE tenant
+    <set>
+      <if test="target.code != null">
+        code = #{target.code},
+      </if>
+      <if test="target.checkUrl != null">
+        check_url = #{target.checkUrl},
+      </if>
+      <if test="target.endTime != null">
+        end_time = #{target.endTime},
+      </if>
+      <if test="target.status != null">
+        status = #{target.status},
+      </if>
+      <if test="target.createTime != null">
+        create_time = #{target.createTime},
+      </if>
+      <if test="target.updateTime != null">
+        update_time = #{target.updateTime},
+      </if>
+    </set>
+    WHERE id IN
+    <foreach close=")" collection="ids" item="id" open="(" separator=",">
+      #{id}
+    </foreach>
+  </update>
+
+  <delete id="deleteById" parameterType="long">
+    DELETE FROM tenant WHERE id = #{id}
+  </delete>
+
+  <delete id="deleteByIds" parameterType="java.util.Collection">
+    DELETE FROM tenant WHERE id IN
+    <foreach close=")" collection="collection" item="id" open="(" separator=",">
+      #{id}
+    </foreach>
+  </delete>
+
+  <select id="selectById" parameterType="long" resultType="com.mhdss.comment.dataobject.TenantDO">
+    SELECT <include refid="query_columns"/> FROM tenant WHERE id = #{id}
+  </select>
+
+  <select id="selectIdsByQuery" parameterType="com.mhdss.comment.query.TenantQuery" resultType="long">
+    SELECT id FROM tenant <include refid="limit_where"/>
+  </select>
+
+  <select id="selectByIds" parameterType="java.util.Collection" resultType="com.mhdss.comment.dataobject.TenantDO">
+    SELECT <include refid="query_columns"/> FROM tenant WHERE id IN
+    <foreach close=")" collection="collection" item="id" open="(" separator=",">
+      #{id}
+    </foreach>
+  </select>
+
+  <select id="selectCount" parameterType="com.mhdss.comment.query.TenantQuery" resultType="int">
+    SELECT COUNT(*) FROM tenant <include refid="where"/>
+  </select>
+
+  <select id="selectList" parameterType="com.mhdss.comment.query.TenantQuery" resultType="com.mhdss.comment.dataobject.TenantDO">
+    SELECT <include refid="query_columns"/> FROM tenant <include refid="limit_where"/>
+  </select>
+</mapper>
