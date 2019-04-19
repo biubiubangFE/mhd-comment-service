@@ -1,11 +1,10 @@
-package com.mhdss.comment.dto;
+package com.mhdss.comment.para;
 
-public class AuthAgent {
+public class AddUserPara {
 
     private long userId;
     private String nickName;
     private String avatarUrl;
-    private String ip;
     private Long tenantId;
 
     public long getUserId() {
@@ -14,22 +13,6 @@ public class AuthAgent {
 
     public void setUserId(long userId) {
         this.userId = userId;
-    }
-
-    public String getIp() {
-        return ip;
-    }
-
-    public void setIp(String ip) {
-        this.ip = ip;
-    }
-
-    public Long getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(Long tenantId) {
-        this.tenantId = tenantId;
     }
 
     public String getNickName() {
@@ -46,5 +29,13 @@ public class AuthAgent {
 
     public void setAvatarUrl(String avatarUrl) {
         this.avatarUrl = avatarUrl;
+    }
+
+    public Long getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(Long tenantId) {
+        this.tenantId = tenantId;
     }
 }

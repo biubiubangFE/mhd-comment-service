@@ -1,35 +1,17 @@
 package com.mhdss.comment.dto;
 
-public class AuthAgent {
+public class TenantUserDTO {
 
-    private long userId;
+    private Long userId;
     private String nickName;
     private String avatarUrl;
-    private String ip;
-    private Long tenantId;
 
-    public long getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(long userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
-    }
-
-    public String getIp() {
-        return ip;
-    }
-
-    public void setIp(String ip) {
-        this.ip = ip;
-    }
-
-    public Long getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(Long tenantId) {
-        this.tenantId = tenantId;
     }
 
     public String getNickName() {

@@ -1,7 +1,9 @@
 package com.mhdss.comment.dataobject;
 
 public class CommentDO extends BaseDO {
-    private Long productId;
+    private Long tenantId;
+
+    private Long tenantResourceId;
 
     private Long userId;
 
@@ -11,12 +13,20 @@ public class CommentDO extends BaseDO {
 
     private String commentValue;
 
-    public Long getProductId() {
-        return productId;
+    public Long getTenantId() {
+        return tenantId;
     }
 
-    public void setProductId(Long productId) {
-        this.productId = productId;
+    public void setTenantId(Long tenantId) {
+        this.tenantId = tenantId;
+    }
+
+    public Long getTenantResourceId() {
+        return tenantResourceId;
+    }
+
+    public void setTenantResourceId(Long tenantResourceId) {
+        this.tenantResourceId = tenantResourceId;
     }
 
     public Long getUserId() {
